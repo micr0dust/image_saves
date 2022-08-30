@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>C-Fill</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/highlight.min.js"></script>
+</head>
+
+<body>
+    <!-- HTML generated using hilite.me -->
+    <div style="background: #ffffff; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;">
+        <table>
+            <tr>
+                <td><pre style="margin: 0; line-height: 125%">  1
+    2
+    3
+    4
+    5
+    6
+    7
+    8
+    9
+   10
+   11
+   12
+   13
+   14
+   15
+   16
+   17
+   18
+   19
+   20
+   21
+   22
+   23
+   24
+   25
+   26
+   27
+   28
+   29
+   30
+   31
+   32
+   33
+   34
+   35
+   36
+   37
+   38
+   39
+   40
+   41
+   42
+   43
+   44
+   45
+   46
+   47
+   48
+   49
+   50
+   51
+   52
+   53
+   54
+   55
+   56
+   57
+   58
+   59
+   60
+   61
+   62
+   63
+   64
+   65
+   66
+   67
+   68
+   69
+   70
+   71
+   72
+   73
+   74
+   75
+   76
+   77
+   78
+   79
+   80
+   81
+   82
+   83
+   84
+   85
+   86
+   87
+   88
+   89
+   90
+   91
+   92
+   93
+   94
+   95
+   96
+   97
+   98
+   99
+  100
+  101
+  102
+  103
+  104
+  105
+  106
+  107
+  108
+  109
+  110
+  111
+  112
+  113</pre></td>
+                <td><pre style="margin: 0; line-height: 125%"><span style="color: #557799">#include &lt;iostream&gt;</span>
+  <span style="color: #557799">#include &lt;vector&gt;</span>
+  
+  <span style="color: #008800; font-weight: bold">using</span> std<span style="color: #333333">::</span>cin;
+  <span style="color: #008800; font-weight: bold">using</span> std<span style="color: #333333">::</span>cout;
+  <span style="color: #008800; font-weight: bold">using</span> std<span style="color: #333333">::</span>vector;
+  
+  <span style="color: #008800; font-weight: bold">const</span> <span style="color: #333399; font-weight: bold">int</span> method[][<span style="color: #0000DD; font-weight: bold">2</span>] <span style="color: #333333">=</span> {{<span style="color: #0000DD; font-weight: bold">0</span>, <span style="color: #0000DD; font-weight: bold">1</span>}, {<span style="color: #0000DD; font-weight: bold">0</span>, <span style="color: #0000DD; font-weight: bold">2</span>}, {<span style="color: #0000DD; font-weight: bold">1</span>, <span style="color: #0000DD; font-weight: bold">0</span>}, {<span style="color: #0000DD; font-weight: bold">1</span>, <span style="color: #0000DD; font-weight: bold">2</span>}, {<span style="color: #0000DD; font-weight: bold">2</span>, <span style="color: #0000DD; font-weight: bold">0</span>}, {<span style="color: #0000DD; font-weight: bold">2</span>, <span style="color: #0000DD; font-weight: bold">1</span>}};
+  
+  <span style="color: #008800; font-weight: bold">struct</span> Result
+  {
+      <span style="color: #333399; font-weight: bold">int</span> d;
+      <span style="color: #333399; font-weight: bold">int</span> poured;
+  };
+  
+  <span style="color: #008800; font-weight: bold">struct</span> Tree
+  {
+      vector<span style="color: #333333">&lt;</span><span style="color: #333399; font-weight: bold">int</span><span style="color: #333333">&gt;</span> status;
+      <span style="color: #333399; font-weight: bold">int</span> poured;
+  };
+  
+  <span style="color: #333399; font-weight: bold">int</span> <span style="color: #0066BB; font-weight: bold">exchange</span>(vector<span style="color: #333333">&lt;</span><span style="color: #333399; font-weight: bold">int</span><span style="color: #333333">&gt;</span> <span style="color: #333333">&amp;</span>status, <span style="color: #333399; font-weight: bold">int</span> <span style="color: #333333">*</span>div, <span style="color: #333399; font-weight: bold">int</span> first, <span style="color: #333399; font-weight: bold">int</span> second)
+  {
+      <span style="color: #008800; font-weight: bold">const</span> <span style="color: #333399; font-weight: bold">int</span> firstInit <span style="color: #333333">=</span> status[first];
+      <span style="color: #008800; font-weight: bold">const</span> <span style="color: #333399; font-weight: bold">int</span> secondInit <span style="color: #333333">=</span> status[second];
+      <span style="color: #008800; font-weight: bold">if</span> (firstInit <span style="color: #333333">&gt;=</span> div[second] <span style="color: #333333">-</span> secondInit)
+      {
+          status[first] <span style="color: #333333">-=</span> (div[second] <span style="color: #333333">-</span> secondInit);
+          status[second] <span style="color: #333333">=</span> div[second];
+          <span style="color: #008800; font-weight: bold">return</span> div[second] <span style="color: #333333">-</span> secondInit;
+      }
+      <span style="color: #008800; font-weight: bold">else</span>
+      {
+          status[first] <span style="color: #333333">=</span> <span style="color: #0000DD; font-weight: bold">0</span>;
+          status[second] <span style="color: #333333">+=</span> firstInit;
+          <span style="color: #008800; font-weight: bold">return</span> firstInit;
+      }
+  }
+  
+  Result <span style="color: #0066BB; font-weight: bold">find</span>(vector<span style="color: #333333">&lt;</span><span style="color: #333399; font-weight: bold">int</span><span style="color: #333333">&gt;</span> status, <span style="color: #333399; font-weight: bold">int</span> <span style="color: #333333">*</span>div, <span style="color: #333399; font-weight: bold">int</span> D)
+  {
+      vector<span style="color: #333333">&lt;</span>Tree<span style="color: #333333">&gt;</span> newRecord{{.status <span style="color: #333333">=</span> status, .poured <span style="color: #333333">=</span> <span style="color: #0000DD; font-weight: bold">0</span>}};
+      vector<span style="color: #333333">&lt;</span>vector<span style="color: #333333">&lt;</span>vector<span style="color: #333333">&lt;</span><span style="color: #333399; font-weight: bold">bool</span><span style="color: #333333">&gt;</span> <span style="color: #333333">&gt;</span> <span style="color: #333333">&gt;</span> repeat(div[<span style="color: #0000DD; font-weight: bold">0</span>] <span style="color: #333333">+</span> <span style="color: #0000DD; font-weight: bold">1</span>, vector<span style="color: #333333">&lt;</span> vector<span style="color: #333333">&lt;</span><span style="color: #333399; font-weight: bold">bool</span><span style="color: #333333">&gt;</span> <span style="color: #333333">&gt;</span>(div[<span style="color: #0000DD; font-weight: bold">1</span>] <span style="color: #333333">+</span> <span style="color: #0000DD; font-weight: bold">1</span> , vector<span style="color: #333333">&lt;</span><span style="color: #333399; font-weight: bold">bool</span><span style="color: #333333">&gt;</span>(div[<span style="color: #0000DD; font-weight: bold">2</span>] <span style="color: #333333">+</span> <span style="color: #0000DD; font-weight: bold">1</span>,<span style="color: #007020">false</span>)));
+      repeat[<span style="color: #0000DD; font-weight: bold">0</span>][<span style="color: #0000DD; font-weight: bold">0</span>][div[<span style="color: #0000DD; font-weight: bold">2</span>]] <span style="color: #333333">=</span> <span style="color: #007020">true</span>;
+      vector<span style="color: #333333">&lt;</span>Result<span style="color: #333333">&gt;</span> resultList;
+      Result cloestD <span style="color: #333333">=</span> {.d <span style="color: #333333">=</span> div[<span style="color: #0000DD; font-weight: bold">2</span>], .poured <span style="color: #333333">=</span> <span style="color: #0000DD; font-weight: bold">0</span>};
+  
+      <span style="color: #008800; font-weight: bold">for</span> (<span style="color: #333399; font-weight: bold">int</span> step <span style="color: #333333">=</span> <span style="color: #0000DD; font-weight: bold">0</span>; <span style="color: #007020">true</span>; step<span style="color: #333333">++</span>)
+      {
+          <span style="color: #008800; font-weight: bold">if</span> (newRecord.size() <span style="color: #333333">==</span> <span style="color: #0000DD; font-weight: bold">0</span>)
+              <span style="color: #008800; font-weight: bold">break</span>;
+          vector<span style="color: #333333">&lt;</span>Tree<span style="color: #333333">&gt;</span> record(newRecord);
+          newRecord.clear();
+          <span style="color: #008800; font-weight: bold">for</span> (<span style="color: #333399; font-weight: bold">int</span> i <span style="color: #333333">=</span> <span style="color: #0000DD; font-weight: bold">0</span>; i <span style="color: #333333">&lt;</span> record.size(); i<span style="color: #333333">++</span>)
+          {
+              <span style="color: #888888">/*cout &lt;&lt; &#39;(&#39; &lt;&lt; record[i].status[0] &lt;&lt; &#39; &#39; &lt;&lt; record[i].status[1] &lt;&lt; &#39; &#39; &lt;&lt; record[i].status[2] &lt;&lt; &#39; &#39; &lt;&lt; record[i].poured &lt;&lt; &quot;)\n&quot;;*/</span>
+              <span style="color: #008800; font-weight: bold">for</span> (<span style="color: #333399; font-weight: bold">int</span> j <span style="color: #333333">=</span> <span style="color: #0000DD; font-weight: bold">0</span>; j <span style="color: #333333">&lt;</span> <span style="color: #0000DD; font-weight: bold">3</span>; j<span style="color: #333333">++</span>)
+                  <span style="color: #008800; font-weight: bold">if</span> (record[i].status[j] <span style="color: #333333">==</span> D)
+                  {
+                      resultList.push_back({.d <span style="color: #333333">=</span> D, .poured <span style="color: #333333">=</span> record[i].poured});
+                      <span style="color: #008800; font-weight: bold">continue</span>;
+                  }
+                  <span style="color: #008800; font-weight: bold">else</span> <span style="color: #008800; font-weight: bold">if</span> (record[i].status[j] <span style="color: #333333">&lt;</span> D)
+                      <span style="color: #008800; font-weight: bold">if</span> (D <span style="color: #333333">-</span> record[i].status[j] <span style="color: #333333">&lt;</span> (D <span style="color: #333333">-</span> cloestD.d)<span style="color: #333333">||</span>cloestD.d<span style="color: #333333">&gt;</span>D)
+                          cloestD <span style="color: #333333">=</span> {.d <span style="color: #333333">=</span> record[i].status[j], .poured <span style="color: #333333">=</span> record[i].poured};
+                      <span style="color: #008800; font-weight: bold">else</span> <span style="color: #008800; font-weight: bold">if</span> ((D <span style="color: #333333">-</span> record[i].status[j] <span style="color: #333333">==</span> (D <span style="color: #333333">-</span> cloestD.d)<span style="color: #333333">||</span>cloestD.d<span style="color: #333333">&gt;</span>D) <span style="color: #333333">&amp;&amp;</span> record[i].poured<span style="color: #333333">&lt;</span>cloestD.poured)
+                          cloestD <span style="color: #333333">=</span> {.d <span style="color: #333333">=</span> record[i].status[j], .poured <span style="color: #333333">=</span> record[i].poured};
+  
+              <span style="color: #008800; font-weight: bold">for</span> (<span style="color: #333399; font-weight: bold">int</span> j <span style="color: #333333">=</span> <span style="color: #0000DD; font-weight: bold">0</span>; j <span style="color: #333333">&lt;</span> <span style="color: #0000DD; font-weight: bold">6</span>; j<span style="color: #333333">++</span>)
+              {
+                  vector<span style="color: #333333">&lt;</span><span style="color: #333399; font-weight: bold">int</span><span style="color: #333333">&gt;</span> tmp(record[i].status);
+                  <span style="color: #008800; font-weight: bold">const</span> <span style="color: #333399; font-weight: bold">int</span> detla <span style="color: #333333">=</span> exchange(tmp, div, method[j][<span style="color: #0000DD; font-weight: bold">0</span>], method[j][<span style="color: #0000DD; font-weight: bold">1</span>]);
+                  <span style="color: #008800; font-weight: bold">if</span> (<span style="color: #333333">!</span>repeat[tmp[<span style="color: #0000DD; font-weight: bold">0</span>]][tmp[<span style="color: #0000DD; font-weight: bold">1</span>]][tmp[<span style="color: #0000DD; font-weight: bold">2</span>]])
+                  {
+                      repeat[tmp[<span style="color: #0000DD; font-weight: bold">0</span>]][tmp[<span style="color: #0000DD; font-weight: bold">1</span>]][tmp[<span style="color: #0000DD; font-weight: bold">2</span>]] <span style="color: #333333">=</span> <span style="color: #007020">true</span>;
+                      newRecord.push_back({.status <span style="color: #333333">=</span> tmp, .poured <span style="color: #333333">=</span> record[i].poured <span style="color: #333333">+</span> detla});
+                  }
+              }
+          }
+      }
+  
+      <span style="color: #008800; font-weight: bold">if</span> (resultList.size())
+      {
+          <span style="color: #333399; font-weight: bold">int</span> min <span style="color: #333333">=</span> resultList[<span style="color: #0000DD; font-weight: bold">0</span>].poured;
+          <span style="color: #333399; font-weight: bold">int</span> pos <span style="color: #333333">=</span> <span style="color: #0000DD; font-weight: bold">0</span>;
+          <span style="color: #008800; font-weight: bold">for</span> (<span style="color: #333399; font-weight: bold">int</span> i <span style="color: #333333">=</span> <span style="color: #0000DD; font-weight: bold">0</span>; i <span style="color: #333333">&lt;</span> resultList.size(); i<span style="color: #333333">++</span>)
+              <span style="color: #008800; font-weight: bold">if</span> (resultList[i].poured <span style="color: #333333">&lt;</span> min)
+              {
+                  pos <span style="color: #333333">=</span> i;
+                  min <span style="color: #333333">=</span> resultList[i].poured;
+              }
+          <span style="color: #008800; font-weight: bold">return</span> resultList[pos];
+      }
+  
+      <span style="color: #008800; font-weight: bold">return</span> cloestD;
+  }
+  
+  <span style="color: #333399; font-weight: bold">int</span> <span style="color: #0066BB; font-weight: bold">main</span>()
+  {
+      <span style="color: #333399; font-weight: bold">int</span> cases;
+      cin <span style="color: #333333">&gt;&gt;</span> cases;
+      <span style="color: #008800; font-weight: bold">for</span> (<span style="color: #333399; font-weight: bold">int</span> caze <span style="color: #333333">=</span> <span style="color: #0000DD; font-weight: bold">0</span>; caze <span style="color: #333333">&lt;</span> cases; caze<span style="color: #333333">++</span>)
+      {
+          <span style="color: #333399; font-weight: bold">int</span> div[<span style="color: #0000DD; font-weight: bold">3</span>], D;
+          cin <span style="color: #333333">&gt;&gt;</span> div[<span style="color: #0000DD; font-weight: bold">0</span>] <span style="color: #333333">&gt;&gt;</span> div[<span style="color: #0000DD; font-weight: bold">1</span>] <span style="color: #333333">&gt;&gt;</span> div[<span style="color: #0000DD; font-weight: bold">2</span>] <span style="color: #333333">&gt;&gt;</span> D;
+  
+          vector<span style="color: #333333">&lt;</span><span style="color: #333399; font-weight: bold">int</span><span style="color: #333333">&gt;</span> status{<span style="color: #0000DD; font-weight: bold">0</span>, <span style="color: #0000DD; font-weight: bold">0</span>, div[<span style="color: #0000DD; font-weight: bold">2</span>]};
+          <span style="color: #008800; font-weight: bold">const</span> Result answer <span style="color: #333333">=</span> find(status, div, D);
+          cout <span style="color: #333333">&lt;&lt;</span> answer.poured <span style="color: #333333">&lt;&lt;</span> <span style="color: #0044DD">&#39; &#39;</span> <span style="color: #333333">&lt;&lt;</span> answer.d <span style="color: #333333">&lt;&lt;</span> <span style="color: #0044DD">&#39;\n&#39;</span>;
+      }
+  
+      <span style="color: #008800; font-weight: bold">return</span> <span style="color: #0000DD; font-weight: bold">0</span>;
+  }
+  </pre></td>
+            </tr>
+        </table>
+    </div>
+
+</body>
+
+</html>
